@@ -77,3 +77,12 @@ function findFriends(arr: Friend[], criterion: (f: Friend) => boolean) {
 console.log(findFriends(friends, (friend) => friend.name.startsWith("Pa")));
 console.log(findFriends(friends, (friend) => friend.age < 35));
 
+export function addInterest(friend: Friend, interest: string) {
+  if (!friend.interests) {
+    friend.interests = [];
+  }
+  friend.interests.push(interest);
+  return friend.interests;
+}
+// Example usage:
+console.log(addInterest(friends[0], "Politics"))
