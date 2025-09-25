@@ -56,15 +56,17 @@ console.log(myBandBuddies)
 function findBuddyContact(list: BuddyList, name: string): string | undefined {
   for (const buddy of list.members) {
     if (buddy.name === name) {
-      if ("phone" in buddy) {
-        return buddy.phone;
-      }
-      else {
-        return buddy.contact.email;
-      }
+      return "phone" in buddy ? buddy.phone : buddy.contact.email;
     }
-    return undefined;
   }
+  return undefined;
+}
+
+function getBuddyListFriends(list: BuddyList): Friend[] {
+  return list.members.reduce<Friend[]>((acc, buddy) => {
+    if ("phone" in buddy) acc.push(buddy); // narrowed to Friend
+    return acc;
+  }, []);
 }
 // Test for findBuddyContact.
 console.log("Contact buddy at: ", findBuddyContact(myFootballBuddies, "Ralph Graham"));
